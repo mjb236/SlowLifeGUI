@@ -1,13 +1,14 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.awt.event.*;
 
 public class Cell extends JButton {
 
     private boolean _beenAlive = false;
 
-    //Because of the refactor to toString method, this value is no longer used.
-    //private int _maxSize = 10000;
+    private int _maxSize = 10000;
     
     public Cell() {
 	super(" ");

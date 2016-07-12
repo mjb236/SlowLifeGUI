@@ -1,5 +1,7 @@
 import java.awt.*;
+
 import javax.swing.*;
+
 import java.util.*;
 
 
@@ -36,11 +38,6 @@ public class MainPanel extends JPanel {
     	//parameter is already an int - does not need to be converted.
     	//Simply returns the value - left the method to avoid possibility of other issues.
     	return x;
-    }
-    
-    //debugging method that allows pinning tests for convertToInt to function.
-    public int intConvert(int x) {
-    	return convertToInt(x);
     }
     
     private int getNumNeighbors(int x, int y) {
@@ -124,10 +121,12 @@ public class MainPanel extends JPanel {
      */
     
     public void backup() {
-	_backupCells = new Cell[_size][_size];
+    	//instead of creating all new objects each time, the
+    	//backup array is created in the constructor and the 
+    	//backup array is just updated with the getAlive()
+    	//function from the active array
 	for (int j = 0; j < _size; j++) {
 	    for (int k = 0; k < _size; k++) {
-		_backupCells[j][k] = new Cell();
 		_backupCells[j][k].setAlive(_cells[j][k].getAlive());
 	    }
 	}
@@ -342,9 +341,14 @@ public class MainPanel extends JPanel {
 	super();
 	_size = size;
 	setLayout(new GridLayout(size, size));
+	
+	//initialize the backup array here to reduce the number of
+	//new objects being made by the backup function
+	_backupCells = new Cell[size][size];
 	_cells = new Cell[size][size];
 	for (int j = 0; j < size; j++) {
 	    for (int k = 0; k < size; k++) {
+	    	_backupCells[j][k] = new Cell();
 		_cells[j][k] = new Cell();
 		this.add(_cells[j][k]);
 		_cells[j][k].setAlive(false);
