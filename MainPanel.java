@@ -40,6 +40,11 @@ public class MainPanel extends JPanel {
     	return x;
     }
     
+    //debugging method that allows pinning tests for convertToInt to function.
+    public int intConvert(int x) {
+    	return convertToInt(x);
+    }
+    
     private int getNumNeighbors(int x, int y) {
 	int size = _size;
 	int leftX = (x - 1) % size;
@@ -121,10 +126,9 @@ public class MainPanel extends JPanel {
      */
     
     public void backup() {
-    	//instead of creating all new objects each time, the
-    	//backup array is created in the constructor and the 
-    	//backup array is just updated with the getAlive()
-    	//function from the active array
+    	//instead of creating new objects each time, simply
+    	//update the backupCell with the active cell's getAlive()
+    	//function
 	for (int j = 0; j < _size; j++) {
 	    for (int k = 0; k < _size; k++) {
 		_backupCells[j][k].setAlive(_cells[j][k].getAlive());
@@ -342,8 +346,9 @@ public class MainPanel extends JPanel {
 	_size = size;
 	setLayout(new GridLayout(size, size));
 	
-	//initialize the backup array here to reduce the number of
-	//new objects being made by the backup function
+	//initialize the backupCell array here and fill with new
+	//cells. that way we don't need to make all new cells
+	//for each backup
 	_backupCells = new Cell[size][size];
 	_cells = new Cell[size][size];
 	for (int j = 0; j < size; j++) {
