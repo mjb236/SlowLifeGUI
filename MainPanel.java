@@ -32,17 +32,15 @@ public class MainPanel extends JPanel {
     }
 
     private int convertToInt(int x) {
-	int c = 0;
-	String padding = "0";
-	while (c < _r) {
-	    String l = new String("0");
-	    padding += l;
-	    c++;
-	}
-	
-	String n = padding + String.valueOf(x);
-	int q = Integer.parseInt(n);
-	return q;
+    	//removed unnecessary code
+    	//parameter is already an int - does not need to be converted.
+    	//Simply returns the value - left the method to avoid possibility of other issues.
+    	return x;
+    }
+    
+    //debugging method that allows pinning tests for convertToInt to function.
+    public int intConvert(int x) {
+    	return convertToInt(x);
     }
     
     private int getNumNeighbors(int x, int y) {
@@ -222,16 +220,17 @@ public class MainPanel extends JPanel {
     public void runContinuous() {
 	_running = true;
 	while (_running) {
+		//removed the extraneous loop in this function. All it was doing was changing
+		//the value of _r and then, after the loop, reseting it to its original value
+		//There are no pinning tests for this method since the function takes no
+		//input and produces no output. This function will eat a lot of CPU time because
+		//of its nature, but removal of the extra loop will mean more actual game cycles
+		//per second.
+		
 	    System.out.println("Running...");
-	    int origR = _r;
 	    try {
 		Thread.sleep(20);
 	    } catch (InterruptedException iex) { }
-	    for (int j=0; j < _maxCount; j++) {
-	    	_r += (j % _size) % _maxCount;
-		_r += _maxCount;
-	    }
-	    _r = origR;
 	    backup();
 	    calculateNextIteration();
 	}

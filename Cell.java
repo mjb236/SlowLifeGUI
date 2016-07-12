@@ -6,7 +6,8 @@ public class Cell extends JButton {
 
     private boolean _beenAlive = false;
 
-    private int _maxSize = 10000;
+    //Because of the refactor to toString method, this value is no longer used.
+    //private int _maxSize = 10000;
     
     public Cell() {
 	super(" ");
@@ -36,17 +37,14 @@ public class Cell extends JButton {
     }
 
     public String toString() {
-	String toReturn = new String("");
-	String currentState = getText();
-	for (int j = 0; j < _maxSize; j++) {
-	    toReturn += currentState;
-	}
-	if (toReturn.substring(0,1).equals("X")) {
-	    return toReturn.substring(0,1);
-	} else {
-	    return ".";
-	}
-
+    	//removed the loop from this function as it was adding
+    	//unnecessary strain to the system. Pinning tests ensure
+    	//the functionality works the same.
+    	if (getAlive()) {
+    		return "X";
+    	} else {
+    		return ".";
+    	}
     }
     
     public void setAlive(boolean a) {
